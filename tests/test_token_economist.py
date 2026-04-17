@@ -1,31 +1,6 @@
 import unittest
-from unittest.mock import patch
 
 from token_economist import detect_costly_patterns, detect_languages, remove_fillers
-
-
-class _DummyToken:
-    def __init__(self, lemma_, pos_, is_stop=False, text="word"):
-        self.lemma_ = lemma_
-        self.pos_ = pos_
-        self.is_stop = is_stop
-        self.text = text
-
-
-class _DummyNLP:
-    def __call__(self, text):
-        class _Doc(list):
-            @property
-            def sents(self):
-                return ["This sentence is repeated often.", "This sentence is repeated often."]
-
-        return _Doc(
-            [
-                _DummyToken("sentence", "NOUN"),
-                _DummyToken("repeat", "VERB"),
-                _DummyToken("repeat", "VERB"),
-            ]
-        )
 
 
 class TokenEconomistTests(unittest.TestCase):

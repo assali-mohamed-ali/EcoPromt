@@ -43,10 +43,11 @@ def estimate(tokens: int, tier: str) -> dict:
 def savings(orig_tok: int, comp_tok: int, heavy_tier: str, selected_tier: str) -> dict:
     baseline = estimate(orig_tok, heavy_tier)
     actual = estimate(comp_tok, selected_tier)
+    pct_saved = round((1 - actual["wh"] / max(baseline["wh"], 1e-9)) * 100, 1)
     return {
         "wh_saved": round(baseline["wh"] - actual["wh"], 5),
         "co2_g_saved": round(baseline["co2_g"] - actual["co2_g"], 5),
-        "pct_saved": round((1 - actual["wh"] / max(baseline["wh"], 1e-9)) * 100, 1),
+        "pct_saved": max(0.0, pct_saved),
         "note": "Source: Luccioni et al. 2023. Values are approximations.",
     }
 

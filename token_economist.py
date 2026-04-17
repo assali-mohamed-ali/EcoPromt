@@ -284,13 +284,15 @@ def analyze(prompt: str) -> EconomyReport:
     orig_tok = token_count(prompt)
     comp_tok = token_count(compressed)
 
+    reduction_pct = 0.0 if orig_tok == 0 else round(max(0.0, (1 - comp_tok / orig_tok) * 100), 1)
+
     return EconomyReport(
         original_prompt=prompt,
         compressed_prompt=compressed,
         original_tokens=orig_tok,
         compressed_tokens=comp_tok,
         token_reduction=orig_tok - comp_tok,
-        reduction_pct=round((1 - comp_tok / max(orig_tok, 1)) * 100, 1),
+        reduction_pct=reduction_pct,
         fillers_removed=fillers,
         repetitions=repetitions,
         language_analysis=language_analysis,
