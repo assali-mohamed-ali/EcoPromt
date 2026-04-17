@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Training artifacts
+data/*
+!data/.gitkeep
+models/*.joblib
+!models/.gitkeep
+
+# Streamlit cache
+.streamlit/
